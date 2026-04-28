@@ -1,0 +1,51 @@
+name: Deploy Moxiflox Medical site
+
+# Builds and deploys the static site in /moxiflox to GitHub Pages.
+#
+# IMPORTANT: This workflow is OPT-IN. It is set to workflow_dispatch only by
+# default so it does NOT take over Pages from the existing statdoctor app.
+# To enable automatic deploys on push, uncomment the `push` trigger below
+# AND configure GitHub Pages source to "GitHub Actions" in repo settings.
+#
+# See moxiflox/README.md for the full setup checklist (recommended approach
+# is a dedicated repo for this site, since Pages allows one custom domain
+# per repo).
+
+on:
+  workflow_dispatch:
+  # push:
+  #   branches: [main]
+  #   paths:
+  #     - "moxiflox/**"
+  #     - ".github/workflows/deploy-moxiflox.yml"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages-moxiflox"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages-moxiflox
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload site as Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./moxiflox
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
