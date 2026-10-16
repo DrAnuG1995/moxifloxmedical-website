@@ -598,6 +598,20 @@ p.small, .small { font-size: 0.9rem; }
 }
 .about-side h4 { margin-top: 0; color: var(--navy-900); font-family: "Fraunces", Georgia, serif; }
 
+.about-head { margin-bottom: 44px; }
+.partner-row + .partner-row {
+  margin-top: 56px;
+  padding-top: 56px;
+  border-top: 1px solid var(--line);
+}
+.partner-name { margin: 0 0 2px; }
+.partner-role {
+  margin: 0 0 18px;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+}
+
 /* ---------- CTA section ---------- */
 
 .cta-box {
